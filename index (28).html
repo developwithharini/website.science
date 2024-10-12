@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Science Enthusiasts: Timeline of Inventions & Discoveries</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    /* Existing styles */
+    body {
+      font-family: 'Roboto', sans-serif;
+      background-image: url('https://static.vecteezy.com/system/resources/previews/026/757/327/original/science-seamless-pattern-with-doodles-cartoon-elements-supplies-on-white-background-for-wallpaper-wrapping-paper-stationary-prints-scrapbooking-etc-back-to-school-theme-eps-10-vector.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      margin: 0;
+      padding: 0;
+      color: #333;
+    }
+    header {
+      background-color: rgba(0, 172, 193, 0.8);
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+    h1 {
+      font-size: 3rem;
+      margin: 0;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+    .intro {
+      background-color: rgba(178, 223, 219, 0.8);
+      padding: 40px;
+      text-align: center;
+    }
+    .intro h2 {
+      font-size: 2.5rem;
+      color: #004d40;
+      font-weight: bold;
+    }
+    .intro p {
+      font-size: 1.2rem;
+      color: #00796b;
+      margin: 0 auto;
+      max-width: 800px;
+      font-weight: 700;
+    }
+    .section {
+      padding: 50px;
+      background-color: rgba(128, 222, 238, 0.8);
+      text-align: center;
+      border-radius: 15px;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+      margin: 30px;
+    }
+    h2 {
+      font-size: 2.5rem;
+      color: #004d40;
+      font-weight: bold;
+    }
+    .timeline {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+      margin: 50px auto;
+      max-width: 1200px;
+    }
+    .timeline-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background-color: #ffffff;
+      border-radius: 15px;
+      padding: 30px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+      transition: transform 0.3s ease-in-out, background-color 0.3s;
+    }
+    .timeline-item:hover {
+      transform: translateY(-10px);
+      background-color: rgba(178, 223, 219, 0.8);
+    }
+    .timeline-item:nth-child(odd) {
+      flex-direction: row-reverse;
+    }
+    .timeline-item img {
+      width: 150px;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 10px;
+      margin: 10px;
+      transition: box-shadow 0.3s ease;
+    }
+    .timeline-item img:hover {
+      box-shadow: 0 6px 12px rgba(0, 172, 193, 0.8);
+    }
+    .timeline-item div {
+      max-width: 500px;
+      text-align: left;
+    }
+    .info-button, .quiz-button {
+      background-color: #004d40;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      cursor: pointer;
+      border-radius: 5px;
+      font-size: 1rem;
+      transition: background-color 0.3s;
+      font-weight: bold;
+      margin-right: 10px;
+    }
+    .info-button:hover, .quiz-button:hover {
+      background-color: #00796b;
+    }
+    .info {
+      display: none;
+      background-color: #f0f4c3;
+      border: 1px solid #c5e1a5;
+      border-radius: 5px;
+      padding: 15px;
+      margin-top: 15px;
+      text-align: left;
+    }
+    footer {
+      background-color: rgba(0, 77, 64, 0.8);
+      color: white;
+      padding: 20px;
+      text-align: center;
+      font-weight: bold;
+    }
+    footer p {
+      margin: 0;
+      font-size: 1.1rem;
+      font-weight: 700;
+    }
+    /* Image Modal Styles */
+    #modal {
+      display: none;
+      position: fixed;
+      z-index: 2;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.8);
+      justify-content: center;
+      align-items: center;
+    }
+    #modal img {
+      max-width: 90%;
+      max-height: 80%;
+    }
+    #modal .close {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-size: 40px;
+      color: white;
+      cursor: pointer;
+    }
+    /* Timeline Slider Styles */
+    .timeline-slider {
+      display: flex;
+      justify-content: center;
+      margin: 20px 0;
+    }
+    input[type=range] {
+      width: 80%;
+    }
+    /* Chatbot Styles */
+    #chatbot-container {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: rgba(0, 172, 193, 0.9);
+      padding: 20px;
+      border-radius: 10px;
+      width: 300px;
+      color: white;
+      z-index: 3;
+    }
+    #chatbot-header {
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+    #chatbot-messages {
+      height: 200px;
+      overflow-y: auto;
+      margin-bottom: 10px;
+      background-color: rgba(255, 255, 255, 0.1);
+      padding: 10px;
+      border-radius: 5px;
+    }
+    #chatbot-messages p {
+      margin: 5px 0;
+    }
+    #chatbot-input {
+      width: 100%;
+      padding: 10px;
+      border-radius: 5px;
+      border: none;
+    }
+    /* 3D Model Styles */
+    #dna-model {
+      width: 100%;
+      height: 400px;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Science Enthusiasts: Discoveries & Inventions</h1>
+  </header>
+
+  <!-- Introduction Section -->
+  <section class="intro">
+    <h2>Welcome to the World of Scientific Wonders</h2>
+    <p>Explore the amazing journey of human curiosity, from the discovery of fire to the latest scientific breakthroughs. Each invention and discovery has shaped the world as we know it. Let's dive into the history of science through these milestones!</p>
+  </section>
+
+  <!-- Interactive Timeline Slider -->
+  <div class="timeline-slider">
+    <input type="range" min="1" max="10" value="1" id="timelineRange" oninput="updateTimeline(this.value)">
+  </div>
+
+  <!-- Sections -->
+  <!-- Section 1: Fire -->
+  <section class="section" id="fire">
+    <div class="timeline-item">
+      <div>
+        <h2>The Discovery of Fire</h2>
+        <p>Fire is one of the most significant discoveries in human history. It provided warmth, protection, and the ability to cook food, transforming human civilization. Evidence of controlled use of fire dates back to around 1.7 million years ago.</p>
+        <button class="info-button" onclick="toggleInfo(this)">More Information</button>
+        <button class="quiz-button" onclick="showQuiz('fire')">Take Quiz</button>
+        <div class="info">
+          <p>Fire allowed early humans to stay warm, ward off predators, and cook food, leading to advancements in nutrition and survival strategies. It also enabled humans to expand into colder regions and develop new tools through metalworking.</p>
+          <p>In addition to practical uses, fire also played a significant role in social interactions, as gathering around a fire fostered community bonds and facilitated communication. The mastery of fire marked a turning point in human evolution, contributing to the development of language and culture.</p>
+        </div>
+        <!-- Quiz Section -->
+        <div class="quiz" id="quiz-fire" style="display: none;">
+          <p>Approximately how many years ago did humans control fire?</p>
+          <button onclick="checkAnswer('fire', 'correct')">1.7 million years ago</button>
+          <button onclick="checkAnswer('fire', 'wrong')">200,000 years ago</button>
+          <div id="quiz-result-fire" style="display: none;"></div>
+        </div>
+      </div>
+      <img src="https://static.vecteezy.com/system/resources/previews/023/816/420/non_2x/cartoon-fire-effect-blaze-fire-free-free-png.png" alt="Fire Icon">
+    </div>
+  </section>
+
+  <!-- Repeat similar structure for other sections -->
+  <!-- Section 2: The Wheel -->
+  <section class="section" id="wheel">
+    <div class="timeline-item">
+      <div>
+        <h2>The Invention of the Wheel</h2>
+        <p>The wheel, invented around 3500 BC, revolutionized transportation and machinery. It enabled the development of carts, chariots, and complex machinery, facilitating trade and travel.</p>
+        <button class="info-button" onclick="toggleInfo(this)">More Information</button>
+        <button class="quiz-button" onclick="showQuiz('wheel')">Take Quiz</button>
+        <div class="info">
+          <p>The wheel's invention marked a significant advancement in technology, making it easier to transport goods and people. It played a crucial role in the growth of ancient civilizations.</p>
+          <p>The wheel also contributed to advancements in agriculture, allowing for the creation of plows and other farming equipment. Over time, the wheel led to innovations in engineering and manufacturing, setting the foundation for modern machinery and transportation systems.</p>
+        </div>
+        <!-- Quiz Section -->
+        <div class="quiz" id="quiz-wheel" style="display: none;">
+          <p>In which year was the wheel invented?</p>
+          <button onclick="checkAnswer('wheel', 'correct')">3500 BC</button>
+          <button onclick="checkAnswer('wheel', 'wrong')">1600 AD</button>
+          <div id="quiz-result-wheel" style="display: none;"></div>
+        </div>
+      </div>
+      <img src="https://icon-library.com/images/wheel-icon-png/wheel-icon-png-1.jpg" alt="Wheel Icon">
+    </div>
+  </section>
+
+  <!-- Section 3: The Printing Press -->
+  <section class="section" id="press">
+    <div class="timeline-item">
+      <div>
+        <h2>The Printing Press</h2>
+        <p>Invented by Johannes Gutenberg in the 15th century, the printing press enabled mass production of books and spread knowledge across Europe, leading to the Renaissance and the Scientific Revolution.</p>
+        <button class="info-button" onclick="toggleInfo(this)">More Information</button>
+        <button class="quiz-button" onclick="showQuiz('press')">Take Quiz</button>
+        <div class="info">
+          <p>The printing press democratized knowledge, allowing ideas to be shared widely and fostering education and literacy among the masses.</p>
+          <p>This invention drastically reduced the cost of books and made literature accessible to a broader audience, which fueled the spread of new ideas, philosophies, and scientific advancements. The printing press was pivotal in shaping modern society by facilitating the Reformation and enhancing communication in various fields.</p>
+        </div>
+        <!-- Quiz Section -->
+        <div class="quiz" id="quiz-press" style="display: none;">
+          <p>Who invented the printing press?</p>
+          <button onclick="checkAnswer('press', 'correct')">Johannes Gutenberg</button>
+          <button onclick="checkAnswer('press', 'wrong')">Isaac Newton</button>
+          <div id="quiz-result-press" style="display: none;"></div>
+        </div>
+      </div>
+      <img src="https://cdn-icons-png.flaticon.com/512/9326/9326071.png" alt="Printing Press Icon">
+    </div>
+  </section>
+
+  <!-- Section 4: The Law of Gravity -->
+  <section class="section" id="gravity">
+    <div class="timeline-item">
+      <div>
+        <h2>The Law of Gravity</h2>
+        <p>Formulated by Sir Isaac Newton in the 17th century, the law of gravity explained the attraction between objects with mass, fundamentally changing our understanding of the universe.</p>
+        <button class="info-button" onclick="toggleInfo(this)">More Information</button>
+        <button class="quiz-button" onclick="showQuiz('gravity')">Take Quiz</button>
+        <div class="info">
+          <p>Newton's law of gravity laid the groundwork for classical mechanics and enabled scientists to make significant advancements in physics and astronomy.</p>
+          <p>This theory not only provided insights into the motion of celestial bodies but also influenced the development of various scientific disciplines, including physics, engineering, and space exploration. The concept of gravity has played a vital role in understanding the universe, leading to discoveries such as the orbits of planets and the behavior of galaxies.</p>
+        </div>
+        <!-- Quiz Section -->
+        <div class="quiz" id="quiz-gravity" style="display: none;">
+          <p>Who formulated the Law of Gravity?</p>
+          <button onclick="checkAnswer('gravity', 'correct')">Sir Isaac Newton</button>
+          <button onclick="checkAnswer('gravity', 'wrong')">Albert Einstein</button>
+          <div id="quiz-result-gravity" style="display: none;"></div>
+        </div>
+      </div>
+      <img src="https://cdn-icons-png.flaticon.com/512/5010/5010061.png" alt="Gravity Icon">
+    </div>
+  </section>
+
+  <!-- Section 5: Theory of Relativity -->
+  <section class="section" id="relativity">
+    <div class="timeline-item">
+      <div>
+        <h2>The Theory of Relativity</h2>
+        <p>Developed by Albert Einstein in the early 20th century, the theory of relativity revolutionized our understanding of space, time, and gravity, introducing concepts such as time dilation and the curvature of spacetime.</p>
+        <button class="info-button" onclick="toggleInfo(this)">More Information</button>
+        <button class="quiz-button" onclick="showQuiz('relativity')">Take Quiz</button>
+        <div class="info">
+          <p>Einstein's theories have had profound implications for modern physics and have reshaped our understanding of the universe.</p>
+          <p>The theory of relativity has led to the development of technologies such as GPS and has been crucial in advancing our knowledge of black holes, gravitational waves, and the expanding universe. It challenged traditional notions of absolute time and space, opening new pathways for scientific inquiry and exploration.</p>
+        </div>
+        <!-- Quiz Section -->
+        <div class="quiz" id="quiz-relativity" style="display: none;">
+          <p>Which scientist developed the Theory of Relativity?</p>
+          <button onclick="checkAnswer('relativity', 'correct')">Albert Einstein</button>
+          <button onclick="checkAnswer('relativity', 'wrong')">Nikola Tesla</button>
+          <div id="quiz-result-relativity" style="display: none;"></div>
+        </div>
+      </div>
+      <img src="https://cdn-icons-png.flaticon.com/512/9710/9710999.png" alt="Relativity Icon">
+    </div>
+  </section>
+
+  <!-- Section 6: The Discovery of DNA -->
+  <section class="section" id="dna">
+    <div class="timeline-item">
+      <div>
+        <h2>The Discovery of DNA</h2>
+        <p>In 1953, James Watson and Francis Crick discovered the double helix structure of DNA, paving the way for modern genetics and molecular biology.</p>
+        <button class="info-button" onclick="toggleInfo(this)">More Information</button>
+        <button class="quiz-button" onclick="showQuiz('dna')">Take Quiz</button>
+        <div class="info">
+          <p>This discovery has had a lasting impact on biology, medicine, and biotechnology, leading to advances in genetic engineering and understanding heredity.</p>
+          <p>The understanding of DNA structure has revolutionized fields such as forensics, genetic counseling, and gene therapy. It also opened doors to the Human Genome Project, which aimed to map all the genes in the human genome, fundamentally changing our approach to medicine and genetics.</p>
+        </div>
+        <!-- Quiz Section -->
+        <div class="quiz" id="quiz-dna" style="display: none;">
+          <p>What is the shape of the DNA molecule?</p>
+          <button onclick="checkAnswer('dna', 'correct')">Double Helix</button>
+          <button onclick="checkAnswer('dna', 'wrong')">Single Strand</button>
+          <div id="quiz-result-dna" style="display: none;"></div>
+        </div>
+        <!-- 3D DNA Model -->
+        <div id="dna-model"></div>
+      </div>
+      <img src="https://static.vecteezy.com/system/resources/previews/011/019/343/original/scientific-spiral-genetic-dna-3d-icon-illustration-png.png" alt="DNA Icon">
+    </div>
+  </section>
+
+  <!-- Section 7: The Discovery of Penicillin -->
+  <section class="section" id="penicillin">
+    <div class="timeline-item">
+      <div>
+        <h2>The Discovery of Penicillin</h2>
+        <p>In 1928, Alexander Fleming discovered penicillin, the first true antibiotic, which has saved countless lives since its introduction in medicine.</p>
+        <button class="info-button" onclick="toggleInfo(this)">More Information</button>
+        <button class="quiz-button" onclick="showQuiz('penicillin')">Take Quiz</button>
+        <div class="info">
+          <p>Penicillin revolutionized the treatment of bacterial infections and laid the groundwork for the development of other antibiotics.</p>
+          <p>This breakthrough laid the foundation for the development of other antibiotics, leading to advancements in medical treatments and the ability to perform complex surgeries with reduced risk of infection. It has also played a crucial role in public health initiatives and the fight against infectious diseases.</p>
+        </div>
+        <!-- Quiz Section -->
+        <div class="quiz" id="quiz-penicillin" style="display: none;">
+          <p>Who discovered Penicillin?</p>
+          <button onclick="checkAnswer('penicillin', 'correct')">Alexander Fleming</button>
+          <button onclick="checkAnswer('penicillin', 'wrong')">Louis Pasteur</button>
+          <div id="quiz-result-penicillin" style="display: none;"></div>
+        </div>
+      </div>
+      <img src="https://cdn0.iconfinder.com/data/icons/allergy-malibu-vol-2-1/128/penicillin-512.png" alt="Penicillin Icon">
+    </div>
+  </section>
+
+  <!-- Section 8: The Vaccination -->
+  <section class="section" id="vaccination">
+    <div class="timeline-item">
+      <div>
+        <h2>The Invention of Vaccination</h2>
+        <p>Edward Jenner's development of the smallpox vaccine in 1796 marked the beginning of immunology, leading to the eventual eradication of the disease.</p>
+        <button class="info-button" onclick="toggleInfo(this)">More Information</button>
+        <button class="quiz-button" onclick="showQuiz('vaccination')">Take Quiz</button>
+        <div class="info">
+          <p>Vaccination has been instrumental in controlling infectious diseases and has saved millions of lives worldwide.</p>
+          <p>Vaccination has played a vital role in preventing diseases and protecting public health. Beginning in the late 18th century, vaccines have led to the near-eradication of diseases such as smallpox and polio. Vaccines work by stimulating the immune system to recognize and combat specific pathogens, providing immunity without causing the disease itself. The development of mRNA vaccines has revolutionized our approach to infectious diseases, notably in the fight against COVID-19. As vaccination efforts continue globally, they remain essential in preventing outbreaks and maintaining community health.</p>
+        </div>
+        <!-- Quiz Section -->
+        <div class="quiz" id="quiz-vaccination" style="display: none;">
+          <p>Which disease was the first vaccine developed for?</p>
+          <button onclick="checkAnswer('vaccination', 'correct')">Smallpox</button>
+          <button onclick="checkAnswer('vaccination', 'wrong')">Polio</button>
+          <div id="quiz-result-vaccination" style="display: none;"></div>
+        </div>
+      </div>
+      <img src="https://oursite-easyread.wwda.org.au/wp-content/uploads/2021/03/noun_vaccine_1937708-1024x1024.png" alt="Vaccination Icon">
+    </div>
+  </section>
+
+  <!-- Section 9: The Discovery of Electricity -->
+  <section class="section" id="electricity">
+    <div class="timeline-item">
+      <div>
+        <h2>The Discovery of Electricity</h2>
+        <p>The study of electricity began in the 17th century and led to the development of technologies that transformed everyday life, from lighting to power generation.</p>
+        <button class="info-button" onclick="toggleInfo(this)">More Information</button>
+        <button class="quiz-button" onclick="showQuiz('electricity')">Take Quiz</button>
+        <div class="info">
+          <p>The harnessing of electricity has driven the modern industrial revolution and is essential for contemporary society.</p>
+          <p>Electricity is a fundamental form of energy that powers modern society. It is the flow of electric charge, typically carried by electrons in conductive materials. Discovered in the 18th century, electricity has transformed industries, transportation, and daily life through the development of electric power generation and distribution systems. From lighting homes and powering appliances to enabling advanced technologies like computers and telecommunications, electricity is essential for economic development and quality of life. However, the growing demand for electricity also raises concerns about sustainability, renewable energy sources, and the environmental impact of fossil fuels.</p>
+        </div>
+        <!-- Quiz Section -->
+        <div class="quiz" id="quiz-electricity" style="display: none;">
+          <p>Who is known as the father of electricity?</p>
+          <button onclick="checkAnswer('electricity', 'correct')">Michael Faraday</button>
+          <button onclick="checkAnswer('electricity', 'wrong')">Thomas Edison</button>
+          <div id="quiz-result-electricity" style="display: none;"></div>
+        </div>
+      </div>
+      <img src="https://cdn3.iconfinder.com/data/icons/industrial-and-construction-1-3/68/55-1024.png" alt="Electricity Icon">
+    </div>
+  </section>
+
+  <!-- Section 10: The Internet -->
+  <section class="section" id="internet">
+    <div class="timeline-item">
+      <div>
+        <h2>The Invention of the Internet</h2>
+        <p>Developed in the late 20th century, the internet has transformed communication, commerce, and information sharing, creating a global network.</p>
+        <button class="info-button" onclick="toggleInfo(this)">More Information</button>
+        <button class="quiz-button" onclick="showQuiz('internet')">Take Quiz</button>
+        <div class="info">
+          <p>The internet has revolutionized how we connect with others and access information, reshaping the global economy and society.</p>
+          <p>The internet has revolutionized communication, information sharing, and the global economy. Emerging in the late 20th century, it connected millions of computers globally, enabling instant communication and access to vast amounts of information. The internet has transformed various sectors, including education, entertainment, and commerce, giving rise to social media, e-commerce, and online learning platforms. Today, the internet plays a crucial role in daily life, influencing how we work, learn, and connect with others, while also raising issues related to privacy, security, and digital divide.</p>
+        </div>
+        <!-- Quiz Section -->
+        <div class="quiz" id="quiz-internet" style="display: none;">
+          <p>In which decade was the internet developed?</p>
+          <button onclick="checkAnswer('internet', 'correct')">Late 20th century</button>
+          <button onclick="checkAnswer('internet', 'wrong')">Early 19th century</button>
+          <div id="quiz-result-internet" style="display: none;"></div>
+        </div>
+      </div>
+      <img src="https://clipground.com/images/internet-clipart-6.jpg" alt="Internet Icon">
+    </div>
+  </section>
+
+  <footer>
+    <p>Harini</p>
+  </footer>
+
+  <!-- Chatbot Interface -->
+  <div id="chatbot-container">
+    <div id="chatbot-header">Ask me about inventions!</div>
+    <div id="chatbot-messages"></div>
+    <input type="text" id="chatbot-input" placeholder="Ask about an invention..." onkeypress="sendChat(event)">
+  </div>
+
+  <!-- Modal for Enlarged Images -->
+  <div id="modal" onclick="closeModal()">
+    <span class="close">&times;</span>
+    <img src="" alt="Enlarged Image">
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script>
+    // Toggle Information
+    function toggleInfo(button) {
+      var infoDiv = button.nextElementSibling;
+      if (infoDiv.style.display === 'block') {
+        infoDiv.style.display = 'none';
+      } else {
+        infoDiv.style.display = 'block';
+      }
+    }
+
+    // Show Quiz
+    function showQuiz(sectionId) {
+      var quizDiv = document.getElementById('quiz-' + sectionId);
+      if (quizDiv.style.display === 'block') {
+        quizDiv.style.display = 'none';
+      } else {
+        quizDiv.style.display = 'block';
+      }
+    }
+
+    // Check Quiz Answer
+    function checkAnswer(sectionId, answer) {
+      var resultDiv = document.getElementById('quiz-result-' + sectionId);
+      if (answer === 'correct') {
+        resultDiv.innerHTML = '<p>Correct! Well done.</p>';
+      } else {
+        resultDiv.innerHTML = '<p>Oops, wrong answer! Try again.</p>';
+      }
+      resultDiv.style.display = 'block';
+    }
+
+    // Scroll to Element
+    function scrollToElement(id) {
+      document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // Update Timeline based on Slider
+    function updateTimeline(value) {
+      const sections = ['fire', 'wheel', 'press', 'gravity', 'relativity', 'dna', 'penicillin', 'vaccination', 'electricity', 'internet'];
+      const targetSection = sections[value - 1];
+      scrollToElement(targetSection);
+    }
+
+    // Chatbot Functionality
+    function sendChat(event) {
+      if (event.key === 'Enter') {
+        var userInput = document.getElementById('chatbot-input').value;
+        var messageArea = document.getElementById('chatbot-messages');
+        messageArea.innerHTML += '<p><strong>You:</strong> ' + userInput + '</p>';
+
+        // Simple bot responses
+        var botResponse = '';
+        if (userInput.toLowerCase().includes('wheel')) {
+          botResponse = 'The wheel was invented around 3500 BC and revolutionized transportation.';
+        } else if (userInput.toLowerCase().includes('dna')) {
+          botResponse = 'DNA, discovered by Watson and Crick, is the blueprint of life with a double helix structure.';
+        } else if (userInput.toLowerCase().includes('fire')) {
+          botResponse = 'Fire was controlled by humans approximately 1.7 million years ago, changing human evolution.';
+        } else {
+          botResponse = 'That\'s interesting! Could you ask about another invention?';
+        }
+        messageArea.innerHTML += '<p><strong>Bot:</strong> ' + botResponse + '</p>';
+        document.getElementById('chatbot-input').value = '';
+        messageArea.scrollTop = messageArea.scrollHeight;
+      }
+    }
+
+    // 3D DNA Model using Three.js
+    function initDNA3DModel() {
+      var scene = new THREE.Scene();
+      var camera = new THREE.PerspectiveCamera(75, window.innerWidth / 2 / 400, 0.1, 1000);
+      var renderer = new THREE.WebGLRenderer({ alpha: true });
+      renderer.setSize(window.innerWidth / 2, 400);
+      document.getElementById("dna-model").appendChild(renderer.domElement);
+
+      var group = new THREE.Group();
+
+      var material = new THREE.MeshPhongMaterial({ color: 0x156289, emissive: 0x072534, side: THREE.DoubleSide });
+
+      // Create the double helix structure
+      for (let i = 0; i < 50; i++) {
+        let geometry = new THREE.CylinderGeometry(0.1, 0.1, 2, 32);
+        let cylinder = new THREE.Mesh(geometry, material);
+        cylinder.position.y = i * 0.5;
+        cylinder.rotation.z = i * 0.3;
+        cylinder.position.x = Math.sin(i * 0.3) * 2;
+        cylinder.position.z = Math.cos(i * 0.3) * 2;
+        group.add(cylinder);
+      }
+
+      scene.add(group);
+
+      var light = new THREE.AmbientLight(0x404040);
+      scene.add(light);
+
+      var directionalLight = new THREE.DirectionalLight(0xffffff, 0.5);
+      scene.add(directionalLight);
+
+      camera.position.z = 10;
+
+      function animate() {
+        requestAnimationFrame(animate);
+        group.rotation.y += 0.01;
+        renderer.render(scene, camera);
+      }
+      animate();
+    }
+
+    // Initialize 3D Model when the window loads
+    window.onload = function() {
+      initDNA3DModel();
+    };
+  </script>
+</body>
+</html>
